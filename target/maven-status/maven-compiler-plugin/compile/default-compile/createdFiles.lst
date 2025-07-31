@@ -1,7 +1,0 @@
-org\Asthenia\asPermission\AsPermission$1.class
-org\Asthenia\asPermission\Commands\PermissionCommand.class
-org\Asthenia\asPermission\AsPermission.class
-org\Asthenia\asPermission\OpenAPI\AsPermissionAPI.class
-org\Asthenia\asPermission\Service\PermissionGroup.class
-org\Asthenia\asPermission\AsPermission$CommandExecutor.class
-org\Asthenia\asPermission\Service\UserManager.class
