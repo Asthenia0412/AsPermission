@@ -1,10 +1,8 @@
-# Default ignored files
-/shelf/
-/workspace.xml
-# Editor-based HTTP Client requests
-/httpRequests/
-# Datasource local storage ignored files
-/dataSources/
-/dataSources.local.xml
-/target
-/.idea
+# IntelliJ IDEA 相关文件
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Maven 编译输出目录
+target/
