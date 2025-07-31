@@ -86,6 +86,8 @@ public final class AsPermission extends JavaPlugin {
 
     private void loadConfig() {
         // 如果配置文件不存在，从JAR中保存默认配置
+
+        // 相当于一层保险 假设数据目录中没有config.yml文件，为了避免插件出错 我需要额外创建config.yml
         if (!configFile.exists()) {
             saveResource("config.yml", false); // 第二个参数表示不覆盖已有文件
         }

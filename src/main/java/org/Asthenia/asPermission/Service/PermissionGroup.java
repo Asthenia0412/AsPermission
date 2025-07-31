@@ -21,7 +21,7 @@ public class PermissionGroup {
     // 保存到yml
     public void save() throws IOException {
        File file = new File(dataFolder,"groups/"+name+".yml");
-       YamlConfiguration config =  new YamlConfiguration();
+       YamlConfiguration config = new YamlConfiguration();
 
        // 保存权限列表
         config.set("permissions",new ArrayList<>(permissions));
