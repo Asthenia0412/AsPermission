@@ -20,7 +20,7 @@ public class PermissionGroup {
     }
 
     // 从yml加载
-    public static PermissionGroup load(File file){
+    public static void load(File file){
         //  实现加载逻辑
     }
 }
