@@ -1,0 +1,6 @@
+name: AsPermission
+version: '1.0-SNAPSHOT'
+main: org.Asthenia.asPermission.AsPermission
+api-version: '1.21'
+load: STARTUP
+authors: [ Asthenia ]
