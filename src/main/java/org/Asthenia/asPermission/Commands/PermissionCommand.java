@@ -2,6 +2,7 @@ package org.Asthenia.asPermission.Commands;
 
 import org.Asthenia.asPermission.AsPermission;
 import org.Asthenia.asPermission.Service.PermissionGroup;
+import org.Asthenia.asPermission.Service.UserManager;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -56,6 +57,8 @@ public class PermissionCommand {
                     return handleListPermissions(sender, args);
                 case "checkpermission":
                     return handleCheckPermission(sender, args);
+                case "listgroupplayers":
+                    return handleListGroupPlayers(sender,args);
                 case "reload":
                     return checkAdminPermission(sender) && handleReload(sender);
                 case "help":
@@ -99,7 +102,7 @@ public class PermissionCommand {
             return false;
         }
 
-        plugin.getUserManager().addUserToGroup(playerUUID, groupName);
+        plugin.getUserManager().addUserToGroup(sender.getName(),playerUUID, groupName);
         sender.sendMessage(String.format("§a成功将玩家 %s 添加到组 %s", playerName, groupName));
 
         try {
@@ -130,7 +133,7 @@ public class PermissionCommand {
             return false;
         }
 
-        plugin.getUserManager().removeUserFromGroup(playerUUID, groupName);
+        plugin.getUserManager().removeUserFromGroup(sender.getName(),playerUUID, groupName);
         sender.sendMessage(String.format("§a成功将玩家 %s 从组 %s 移除", playerName, groupName));
 
         try {
@@ -262,6 +265,29 @@ public class PermissionCommand {
         });
         return true;
     }
+    public boolean handleListGroupPlayers(CommandSender sender, String[] args) {
+        if(!checkArgs(sender, args, 2, "/perm listgroupplayers <组名>")) {
+            return false;
+        }
+
+        String groupName = args[1];
+        PermissionGroup group = plugin.getGroup(groupName);
+
+        if(group == null) {
+            sender.sendMessage(String.format(GROUP_NOT_FOUND, groupName)); // 修复这一行
+            return false;
+        }
+
+        List<String> players = plugin.getGroupPlayers().get(groupName);
+        if (players == null || players.isEmpty()) {
+            sender.sendMessage("§c该组目前没有成员");
+            return true;
+        }
+
+        sender.sendMessage(String.format("§a§l组 %s 的用户列表 (§e总计: %d§a§l):", groupName, players.size()));
+        players.forEach(player -> sender.sendMessage("§e- " + player));
+        return true;
+    }
 
     private boolean handleListPermissions(CommandSender sender, String[] args) {
         if (!checkArgs(sender, args, 2, "/perm listPermissions <组名>")) {
@@ -349,22 +375,21 @@ public class PermissionCommand {
                 "§7输入 §b/perm <命令> §7获取详细用法",
                 "",
                 "§a§l用户组管理命令:",
-                "§e/perm createGroup <组名> §7- 创建新权限组",
-                "§e/perm DeleteGroup <组名> §7- 删除权限组",
-                "§e/perm listGroups §7- 列出所有权限组",
+                "§e/perm addplayertogroup <玩家> <组名> §7- 分配玩家到权限组",
+                "§e/perm deleteplayerfromgroup <玩家> <组名> §7- 从组移除玩家",
+                "§e/perm creategroup <组名> §7- 创建新权限组",
+                "§e/perm deletegroup <组名> §7- 删除权限组",
+                "§e/perm listgroups §7- 列出所有权限组",
+                "§e/perm listgroupplayers <组名> §7- 列出指定权限组的所有用户",
                 "",
                 "§a§l权限管理命令:",
-                "§e/perm AddPermission <组名> <权限> §7- 向组添加权限",
-                "§e/perm DeletePermission <组名> <权限> §7- 从组移除权限",
-                "§e/perm listPermissions <组名> §7- 列出组的所有权限",
-                "",
-                "§a§l用户管理命令:",
-                "§e/perm AddPlayerToGroup <玩家> <组名> §7- 分配玩家到权限组",
-                "§e/perm DeletePlayerFromGroup <玩家> <组名> §7- 从组移除玩家",
-                "§e/perm checkPermission <玩家> <权限> §7- 检查玩家是否有权限",
+                "§e/perm addpermission <组名> <权限> §7- 向组添加权限",
+                "§e/perm deletepermission <组名> <权限> §7- 从组移除权限",
+                "§e/perm listpermissions <组名> §7- 列出组的所有权限",
+                "§e/perm checkpermission <玩家> <权限> §7- 检查玩家是否有权限",
                 "",
                 "§a§l系统命令:",
-                "§e/perm reload §7- 重载权限系统 (需要 asperm.admin 权限)",
+                "§e/perm reload §7- 重载权限系统",
                 "§e/perm help §7- 显示帮助信息",
                 "",
                 "§7提示: 使用Tab键自动补全命令",

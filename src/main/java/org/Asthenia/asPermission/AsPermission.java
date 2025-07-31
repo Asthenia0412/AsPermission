@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
@@ -207,6 +208,9 @@ public final class AsPermission extends JavaPlugin {
 
     public String getDefaultGroup() {
         return "default";
+    }
+    public Map<String, List<String>> getGroupPlayers(){
+        return userManager.getGroupPlayers();
     }
 
     @FunctionalInterface
