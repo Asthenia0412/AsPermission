@@ -2,9 +2,9 @@
 
 # AsPermission - Minecraft RBAC 权限管理系统
 
-https://img.shields.io/badge/Minecraft-1.21.8-green
- https://img.shields.io/badge/Java-21-blue
- https://img.shields.io/badge/License-MIT-orange
+![Minecraft](https://img.shields.io/badge/Minecraft-1.21.8-green)
+![Java](https://img.shields.io/badge/Java-21-blue)
+![License](https://img.shields.io/badge/License-MIT-orange)
 
 ## 📖 项目简介
 
