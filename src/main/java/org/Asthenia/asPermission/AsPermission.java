@@ -1,6 +1,7 @@
 package org.Asthenia.asPermission;
 
 import org.Asthenia.asPermission.Commands.PermissionCommand;
+import org.Asthenia.asPermission.OpenAPI.AsPermissionAPI;
 import org.Asthenia.asPermission.Service.PermissionGroup;
 import org.Asthenia.asPermission.Service.UserManager;
 import org.bukkit.Bukkit;
@@ -28,6 +29,8 @@ public final class AsPermission extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        // 0. 先公开API
+        AsPermissionAPI.initialize(this);
         // 1. 先初始化数据目录
         if (!initializeDataFolders()) {
             getLogger().severe("无法初始化数据目录，插件已禁用!");
